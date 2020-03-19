@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<p id="turma"></p>
+<p id="cidade"></p>
+<p id="aula"></p>
+<p id="finalizado"></p>
+
+<body>
+
+  <script>
+    // cria um objeto HTTP
+    const Http = new XMLHttpRequest();
+    // url dos dados
+    const url = './dados.json';
+    // abre a requisição, do tipo get
+    Http.open("GET", url);
+    // envia a requisição
+    Http.send();
+
+    // ao finalizar requisição
+    Http.onreadystatechange = (e) => {
+      let resposta = JSON.parse(Http.responseText)
+      console.log(resposta)
+
+      const turma = document.getElementById("turma")
+      turma.innerText = resposta.turma
+      const aula = document.getElementById("aula")
+      aula.innerText = resposta.aula
+      const cidade = document.getElementById("cidade")
+      cidade.innerText = resposta.cidade
+      const finalizado = document.getElementById("finalizado")
+      finalizado.innerText = resposta.finalizado
+    }
+
+  </script>
+
+</body>
+
+
+</html>

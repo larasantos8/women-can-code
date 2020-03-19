@@ -1,0 +1,12 @@
+.clicado {
+  text-decoration: line-through;
+}
+
+button, li {
+  font-size: 20px
+}
+
+input {
+  height: 30px;
+  font-size: 22px
+}

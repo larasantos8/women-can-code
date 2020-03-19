@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <input type="text" id="texto">
+  <button id="botao">Meu Botão</button>
+
+  <ul id="lista"></ul>
+
+  <script>
+    const botao = document.querySelector("#botao")
+    const texto = document.querySelector("#texto")
+    const lista = document.querySelector("#lista")
+    let array = []
+
+    // coloco os dados do local storage no html quando a página é carregada pela primeira vez
+    window.addEventListener("DOMContentLoaded", () => {
+      // chamo a função montaArray
+      montaArray()
+    })
+
+    botao.addEventListener("click", () => {
+      // adiciono no array o valor digitado no input de textp
+      array.push(texto.value)
+      // converto o array inteiro para json
+      const arrayJSON = JSON.stringify(array)
+      // envio o array convertido para o local storage
+      localStorage.setItem("tecnologias3", arrayJSON)
+
+      // chamo a função monta array
+      montaArray()
+    })
+
+    // insere os dados no array
+    montaArray = () => {
+      // verifica se existe algo no local storage
+      if (localStorage.getItem("tecnologias3")) {
+        // converto o json para array de novo
+        const arrayConvertido = JSON.parse(localStorage.getItem("tecnologias3"))
+        // SUBSTITUO todo o conteúdo do array pelo valor do local storage
+        array = arrayConvertido
+        // crio uma variavel que vai receber cada item do array
+        let conteudo = ''
+        // faço o loop pelo array inteiro
+        array.forEach(item => {
+          // atribuo na variavel de conteudo cada item do array
+          conteudo += `
+            <li>
+              <span>${item}</span>
+              <button class="deletar">deletar</button>
+            </li>
+          `})
+        // adiciono no meu html da lista o conteudo do array
+        lista.innerHTML = conteudo
+      }
+    }
+
+    lista.addEventListener("click", (event) => {
+      // descubro qual foi o item clicado e qual é o seu conteúdo
+      const itemDeletado = event.target.previousSibling.previousSibling
+      // verifico se o lugar que eu cliquei na lista contém a classe deletar
+      // serve para saber se eu cliquei no botão deletar ou em outro lugar da lista
+      if (event.target.classList.contains('deletar')) {
+        // mostro confirmação para deletar
+        if (confirm("Tem certeza?")) {
+          // ao clicar em ok o item inteiro é deletado do html
+          event.target.parentElement.remove()
+
+          // para deletar do local storage primeiro eu preciso deletar do array
+          // e então enviar esse array de volta ao local storage
+          // uso o parametro index para poder comparar cada indice do array
+          array.forEach((item, index) => {
+            if (itemDeletado.innerText === item) {
+              // ao achar o indice que corresponde ao meu item eu o deleto
+              array.splice(index, 1)
+            }
+          })
+          // converte o arrayDeItens para JSON e atribui à variavel arrayJSON
+          const arrayJSON = JSON.stringify(array);
+          // envio o arrayDeItens atualizado e convertido para JSON para o local storage
+          localStorage.setItem("tecnologias3", arrayJSON);
+        }
+      }
+    })
+  </script>
+
+</body>
+
+</html>

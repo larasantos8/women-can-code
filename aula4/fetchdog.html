@@ -1,0 +1,67 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Fetch Cachorro</title>
+</head>
+<style>
+
+  body {
+              background: rgb(24, 148, 148);
+              font-family: 'Lacquer' ;
+              font-size: 28px;
+          }
+  
+  </style> 
+  
+<body>
+  <h1></h1>
+  <h1> Fotos de doguinhos </h1>
+<h1 id="quantidade"> </h1>
+
+  <button onmouseover="mudarImagem()">Foto do Cachorro</button> <br>
+  <img src="" id="foto">
+
+  <script>
+    let arrayDog = []
+
+    // atribuo na variavel a tag img
+    const imagem = document.getElementById("foto");
+    const quantidade = document.getElementById("quantidade");
+
+    // objeto com meus dados de requisição
+    const dadosDaRequisicao = {
+      method: 'get'
+    }
+
+    function mudarImagem() {
+      //inicio o fetch na url
+      fetch("https://random.dog/woof.json", dadosDaRequisicao)
+        .then(function (resposta) {
+          // converto o retorno em json
+          resposta.json()
+            // pego os dados e mostro no console
+            .then(function (dados) {
+              // coloco no source da imagem o conteúdo recebido pela API
+              imagem.src = dados.url
+              // mostro no console o resultado da API
+              console.log(dados);
+              arrayDog.push(dados.url);
+              quantidade.innerText = arrayDog.length;
+            })
+        })
+        //se falhar mostra o erro
+        .catch(function (erro) {
+          console.log(erro)
+        })
+        
+    }
+
+    console.log(arrayDog)
+
+
+  </script>
+
+</body>
+
+</html>

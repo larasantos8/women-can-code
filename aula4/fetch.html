@@ -1,0 +1,47 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Fetch Gato</title>
+</head>
+
+<body>
+
+  <button onclick="mudarImagem()">Foto do Gato</button> <br>
+  <img src="" id="foto">
+
+  <script>
+
+    // atribuo na variavel a tag img
+    const imagem = document.getElementById("foto");
+
+    // objeto com meus dados de requisição
+    const dadosDaRequisicao = {
+      method: 'get'
+    }
+
+    function mudarImagem() {
+      //inicio o fetch na url
+      fetch("https://aws.random.cat/meow", dadosDaRequisicao)
+        .then(function (resposta) {
+          // converto o retorno em json
+          resposta.json()
+            // pego os dados e mostro no console
+            .then(function (dados) {
+              // coloco no source da imagem o conteúdo recebido pela API
+              imagem.src = dados.file
+              // mostro no console o resultado da API
+              console.log(dados)
+            })
+        })
+        //se falhar mostra o erro
+        .catch(function (erro) {
+          console.log(erro)
+        })
+    }
+
+  </script>
+
+</body>
+
+</html>
