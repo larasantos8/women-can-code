@@ -8,42 +8,84 @@
 </head>
 
 <ul id="lista-compras"></ul>
-
-
+<button id="botao-deletar">Deletar Item Carne</button><br><br>
+<input type="text" id="texto-atualizar">
+<button id="botao-atualizar">Atualizar Item 5</button><br><br>
+<input type="text" id="texto-adicionar">
+<button id="botao-adicionar">Adicionar Item</button>
 
 <body>
 
   <script>
     const lista = document.querySelector("#lista-compras")
-    
+    const botaoDeletar = document.querySelector("#botao-deletar")
+    const textoAtualizar = document.querySelector("#texto-atualizar")
+    const botaoAtualizar = document.querySelector("#botao-atualizar")
+    const textoAdicionar = document.querySelector("#texto-adicionar")
+    const botaoAdicionar = document.querySelector("#botao-adicionar")
 
-    // meu array
     let arrayCompras = []
 
-    // minha funcao sincrona ES7
     getProduto = async () => {
-      // crio um objeto com o metodo get
       const headers = { method: 'get' }
-      // minha variavel do loop
       let conteudo = ''
 
-      // aguardo a requisição finalizar
       await fetch("http://localhost:3000/lista", headers)
         .then(resposta => resposta.json())
         .then(dados => arrayCompras = dados)
 
-      // loop no meu array de alunas
       arrayCompras.forEach(produto => {
         conteudo += `<li>${produto.name}</li>`
       })
 
-      // atribuo na minha variavel de lista
       lista.innerHTML = conteudo
     }
 
-  
+    deleteProduto = async () => {
+        const requisicao = { method: 'delete' }
 
-    // navegador termina de carregar e chama a função getAlunas
+        await fetch("http://localhost:3000/lista/3", requisicao)
+          .then(resposta => resposta.json())
+          .then(dados => arrayCompras = dados)
+      }
+
+    botaoDeletar.addEventListener("click", deleteProduto)
+
+    putProduto = async () => {
+      const requisicao = {
+        headers: { "Content-Type": "application/json" },
+        method: 'put',
+        body: JSON.stringify({
+          name: textoAtualizar.value,
+          id: "5"
+        })
+      }
+
+      await fetch("http://localhost:3000/lista/5", requisicao)
+        .then(resposta => resposta.json())
+        .then(dados => arrayCompras = dados)
+    }
+
+    botaoAtualizar.addEventListener("click", putProduto)
+
+
+
+    postProduto = async () => {
+      const requisicao = {
+        headers: { "Content-Type": "application/json" },
+        method: 'post',
+        body: JSON.stringify({
+          name: textoAdicionar.value
+        })
+      }
+
+      await fetch("http://localhost:3000/lista/", requisicao)
+        .then(resposta => resposta.json())
+        .then(dados => arrayCompras = dados)
+    }
+
+    botaoAdicionar.addEventListener("click", postProduto)
+
     window.addEventListener("DOMContentLoaded", getProduto)
 
   </script>
