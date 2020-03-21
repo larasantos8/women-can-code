@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Compras</title>
+</head>
+
+<ul id="lista-compras"></ul>
+
+
+
+<body>
+
+  <script>
+    const lista = document.querySelector("#lista-compras")
+    
+
+    // meu array
+    let arrayCompras = []
+
+    // minha funcao sincrona ES7
+    getProduto = async () => {
+      // crio um objeto com o metodo get
+      const headers = { method: 'get' }
+      // minha variavel do loop
+      let conteudo = ''
+
+      // aguardo a requisição finalizar
+      await fetch("http://localhost:3000/lista", headers)
+        .then(resposta => resposta.json())
+        .then(dados => arrayCompras = dados)
+
+      // loop no meu array de alunas
+      arrayCompras.forEach(produto => {
+        conteudo += `<li>${produto.name}</li>`
+      })
+
+      // atribuo na minha variavel de lista
+      lista.innerHTML = conteudo
+    }
+
+  
+
+    // navegador termina de carregar e chama a função getAlunas
+    window.addEventListener("DOMContentLoaded", getProduto)
+
+  </script>
+
+</body>
+
+</html>
