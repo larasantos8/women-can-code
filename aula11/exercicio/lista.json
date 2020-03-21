@@ -1,0 +1,28 @@
+{
+  "lista": [
+    {
+      "name": "Feijao",
+      "id": 1
+    },
+    {
+      "name": "Arroz",
+      "id": 2
+    },
+    {
+      "name": "Sal",
+      "id": 3
+    },
+    {
+      "name": "Carne",
+      "id": 4
+    },
+    {
+      "name": "Ovo",
+      "id": 5
+    },
+    {
+      "name": "Leite",
+      "id": 6
+    }
+  ]
+}

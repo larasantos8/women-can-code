@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Compras</title>
+</head>
+
+<ul id="lista-compras"></ul>
+<button id="botao-deletar">Deletar Item Carne</button><br><br>
+<input type="text" id="texto-atualizar">
+<button id="botao-atualizar">Atualizar Item 5</button><br><br>
+<input type="text" id="texto-adicionar">
+<button id="botao-adicionar">Adicionar Item</button>
+
+<body>
+
+  <script>
+    const lista = document.querySelector("#lista-compras")
+    const botaoDeletar = document.querySelector("#botao-deletar")
+    const textoAtualizar = document.querySelector("#texto-atualizar")
+    const botaoAtualizar = document.querySelector("#botao-atualizar")
+    const textoAdicionar = document.querySelector("#texto-adicionar")
+    const botaoAdicionar = document.querySelector("#botao-adicionar")
+
+    let arrayCompras = []
+
+    getProduto = async () => {
+      const headers = { method: 'get' }
+      let conteudo = ''
+
+      await fetch("http://localhost:3000/lista", headers)
+        .then(resposta => resposta.json())
+        .then(dados => arrayCompras = dados)
+
+      arrayCompras.forEach(produto => {
+        conteudo += `<li>${produto.name}</li>`
+      })
+
+      lista.innerHTML = conteudo
+    }
+
+    deleteProduto = async () => {
+        const requisicao = { method: 'delete' }
+
+        await fetch("http://localhost:3000/lista/3", requisicao)
+          .then(resposta => resposta.json())
+          .then(dados => arrayCompras = dados)
+      }
+
+    botaoDeletar.addEventListener("click", deleteProduto)
+
+    putProduto = async () => {
+      const requisicao = {
+        headers: { "Content-Type": "application/json" },
+        method: 'put',
+        body: JSON.stringify({
+          name: textoAtualizar.value,
+          id: "5"
+        })
+      }
+
+      await fetch("http://localhost:3000/lista/5", requisicao)
+        .then(resposta => resposta.json())
+        .then(dados => arrayCompras = dados)
+    }
+
+    botaoAtualizar.addEventListener("click", putProduto)
+
+
+
+    postProduto = async () => {
+      const requisicao = {
+        headers: { "Content-Type": "application/json" },
+        method: 'post',
+        body: JSON.stringify({
+          name: textoAdicionar.value
+        })
+      }
+
+      await fetch("http://localhost:3000/lista/", requisicao)
+        .then(resposta => resposta.json())
+        .then(dados => arrayCompras = dados)
+    }
+
+    botaoAdicionar.addEventListener("click", postProduto)
+
+    window.addEventListener("DOMContentLoaded", getProduto)
+
+  </script>
+
+</body>
+
+</html>
