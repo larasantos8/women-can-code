@@ -1,0 +1,70 @@
+{
+  "usuario": {
+    "nome": "Lara"
+  },
+  "pergunta": {
+    "titulo": "O que é uma api rest afinal de contas???",
+    "conteudo": "O que significa REST e RESTFul?? Num entendi",
+    "tags": "javascript",
+    "votos": 4,
+    "data": "09 de março de 2020",
+    "usuario": "frontdosbons"
+  },
+  "respostas": [
+    {
+      "id": 2,
+      "conteudo": "Pergunta pro google",
+      "votos": 0,
+      "data": "09 de março de 2020",
+      "usuario": "zé"
+    },
+    {
+      "conteudo": " sei la",
+      "votos": 0,
+      "data": "21 de março de 2020",
+      "id": 3
+    },
+    {
+      "conteudo": " aaaa",
+      "votos": 0,
+      "data": "21 de março de 2020",
+      "usuario": "Lara",
+      "id": 4
+    },
+    {
+      "conteudo": " aa",
+      "votos": 0,
+      "data": "21 de março de 2020",
+      "usuario": "Lara",
+      "id": 5
+    },
+    {
+      "conteudo": " aaaa",
+      "votos": 0,
+      "data": "21 de março de 2020",
+      "usuario": "Lara",
+      "id": 6
+    },
+    {
+      "conteudo": " oi oi ",
+      "votos": 0,
+      "data": "21 de março de 2020",
+      "usuario": "Lara",
+      "id": 7
+    },
+    {
+      "conteudo": " dssd",
+      "votos": 0,
+      "data": "21 de março de 2020",
+      "usuario": "Lara",
+      "id": 8
+    },
+    {
+      "conteudo": " amém god",
+      "votos": 0,
+      "data": "21 de março de 2020",
+      "usuario": "Lara",
+      "id": 9
+    }
+  ]
+}
