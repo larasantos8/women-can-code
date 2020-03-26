@@ -6,7 +6,6 @@ class Respostas {
        
     }
 
-    
 
     getRespostas = async () => {
         const requisicao = { method: 'get' }
@@ -23,59 +22,61 @@ class Respostas {
     mostraRespostas = () => {
         let cardRespostas = ''
 
-        this.arrayRespostas.forEach((elemento) => {
+        this.arrayRespostas.forEach((resposta) => {
             cardRespostas +=`
+            <hr>
             <li>
-            <table class="fw" id="message-88">
-            <tbody>
-                <tr>
-                <td class="votecell" rowspan="2">
-                    <div class="vote">
-                    <div class="text-center">
-                        <a class="vote-up disabled">
-                        <span class="glyphicon glyphicon-circle-arrow-up"></span>
-                        </a>
-                    </div>
-                    <div class="score text-center"> ${elemento.votos} </div>
-                    <div class="text-center">
-                        <a class="vote-down disabled">
-                        <span class="glyphicon glyphicon-circle-arrow-down"></span>
-                        </a>
-                    </div>
-                    </div>
-                </td>
-                <td class="postcell">
-                    <div class="col-md-10">
+              <table class="fw" id="message-88">
+                <tbody>
+                  <tr>
+                    <td class="votecell" rowspan="2">
+                      <div class="vote">
+                        <div class="text-center">
+                          <a class="vote-up disabled" data-voto="up" data-tipo="votar" data-id=${resposta.id}>
+                            <span  class="glyphicon glyphicon-circle-arrow-up" data-voto="up" data-tipo="votar" data-id=${resposta.id}></span>
+                          </a>
+                        </div>
+                        <div class="score text-center">${resposta.votos}</div>
+                        <div class="text-center">
+                          <a class="vote-down disabled" data-tipo="votar" data-voto="down" data-id=${resposta.id}>
+                            <span class="glyphicon glyphicon-circle-arrow-down" data-tipo="votar" data-voto="down" data-id=${resposta.id}></span>
+                          </a>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="postcell">
+                      <div class="col-md-10">
 
-                    <p> ${elemento.conteudo} </p>
-                    </div>
-                    <div class="col-md-2">
-                    <a href="#" class="btn btn-danger" title="deletar" id = "${elemento.id}" >
-                        <i class="glyphicon glyphicon-trash"></i></a>
-                    </div>
-                    <table class="user-info">
-                    <tbody>
-                        <tr>
-                        </tr>
-                        <tr>
-                        <td colspan="2">Respondido em <br>
-                            <time> ${elemento.data} </time>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td class="avatar"><img alt="testuser" height="30"
-                            src="http://gravatar.com/avatar/85e3339e2c78f081802575f4e8081792?default=identicon&amp;size=30"
-                            width="30"></td>
-                        <td><a href=""> ${elemento.usuario} </a></td>
-                        </tr>
-                    </tbody>
-                    </table>
-                    <p></p>
-                </td>
-                </tr>
-            </tbody>
-            </table>
+                        <p>${resposta.conteudo}</p>
+                      </div>
+                      <div class="col-md-2">
+                        <a href="#" class="btn btn-danger" data-tipo="deletar" data-id="${resposta.id}" title="deletar">
+                          <i class="glyphicon glyphicon-trash" data-tipo="deletar" data-id="${resposta.id}"></i></a>
+                      </div>
+                      <table class="user-info">
+                        <tbody>
+                          <tr>
+                          </tr>
+                          <tr>
+                            <td colspan="2">Respondido em <br>
+                              <time>${resposta.data}</time>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="avatar"><img alt="testuser" height="30"
+                                src="http://gravatar.com/avatar/85e3339e2c78f081802575f4e8081792?default=identicon&amp;size=30"
+                                width="30"></td>
+                            <td><a href="">${resposta.usuario}</a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <p></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </li>
+            <hr></hr>
             `
         })
 
@@ -115,34 +116,18 @@ class Respostas {
           .then(dados => this.arrayRespostas = dados)
       }
 
+
+    // listaRespostas.addEventListener("click", async (event) => {
+    //     const idResposta = event.target.dataset.id
+    //     const tipo = event.target.dataset.tipo
     
-    // deleteResposta= async (id) => {
-    //     const idRseposta = event.target.dataset.id
-    //     const requisicao = { method: 'delete' }
-
-    //     if(idResposta !== undefined && event.target.classList.contains('btn btn-danger')){
-    //     await fetch("http://localhost:3000/respostas/" + id, requisicao)
-    //       .then(resposta => resposta.json())
-    //       .then(dados => this.arrayRespostas = dados)
+    //     if (idResposta !== undefined && tipo === "deletar") {
+    //         if (confirm("Tem certeza?")) {
+    //             const requisicao = { method: 'delete' }
+    //             // aguardo a requisição finalizar
+    //             await fetch("http://localhost:3000/respostas/" + idResposta, requisicao)
+    //         }
     //     }
-    // }
 
+    // })
 }
-
-// deletarItemDaLista(event) {
-//     const itemDeletado = event.target.previousSibling.previousSibling.innerText
-//     if (event.target.classList.contains('deletar')) {
-//       if (confirm("Tem certeza?")) {
-//         event.target.parentElement.remove()
-//         this.arrayDeItens.forEach((item, index) => {
-//           if (itemDeletado.innerText === item) {
-//           this.arrayDeItens.splice(index, 1)
-//           }
-//         })
-//         const arrayJSON = JSON.stringify(this.arrayDeItens)
-//         localStorage.setItem("produtos", arrayJSON)
-//       }
-//     }
-//   }
-
-// console.log(event.target)
